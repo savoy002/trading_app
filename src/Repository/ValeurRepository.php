@@ -16,7 +16,7 @@ class ValeurRepository extends ServiceEntityRepository
         parent::__construct($registry, Valeur::class);
     }
 
-    public function findByEntrepriseDate(int $idEntreprise, Date $date, String $type)
+    public function findByEntrepriseDate(int $idEntreprise, Date $date, String $type): array
     {
         $afficheDate = $date->format('Y-m-d');
 

@@ -16,7 +16,7 @@ class DateRepository extends ServiceEntityRepository
         parent::__construct($registry, Date::class);
     }
 
-    public function findByEntreprise(int $id, ?String $type)
+    public function findByEntreprise(int $id, ?String $type): array
     {
         $qb = $this->createQueryBuilder('d')
             ->innerJoin('d.valeurs', 'v')
@@ -32,7 +32,7 @@ class DateRepository extends ServiceEntityRepository
 
         $query = $qb->getQuery();
 
-        retrun $query;
+        return $query->execute();
     }
 
 //    /**
