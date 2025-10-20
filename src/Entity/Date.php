@@ -28,11 +28,11 @@ class Date
      * @var Collection<int, Valeur>
      */
     #[ORM\OneToMany(targetEntity: Valeur::class, mappedBy: 'date', orphanRemoval: true)]
-    private Collection $Valeur;
+    private Collection $valeurs;
 
     public function __construct()
     {
-        $this->Valeur = new ArrayCollection();
+        $this->valeurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,8 +66,8 @@ class Date
 
     public function addValeur(Valeur $valeur): static
     {
-        if (!$this->Valeur->contains($valeur)) {
-            $this->Valeur->add($valeur);
+        if (!$this->valeurs->contains($valeur)) {
+            $this->valeurs->add($valeur);
             $valeur->setDate($this);
         }
 
@@ -76,7 +76,7 @@ class Date
 
     public function removeValeur(Valeur $valeur): static
     {
-        if ($this->Valeur->removeElement($valeur)) {
+        if ($this->valeurs->removeElement($valeur)) {
             // set the owning side to null (unless already changed)
             if ($valeur->getDate() === $this) {
                 $valeur->setDate(null);

@@ -16,6 +16,19 @@ class EntrepriseRepository extends ServiceEntityRepository
         parent::__construct($registry, Entreprise::class);
     }
 
+    public function findAllByResarch(String $titre): array 
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.nom LIKE ":titre%"')
+            ->setParameter('titre', $titre)
+            ->orderBy('e.nom', 'ASC')
+            ->setMaxResults(5);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
     //    /**
     //     * @return Entreprise[] Returns an array of Entreprise objects
     //     */

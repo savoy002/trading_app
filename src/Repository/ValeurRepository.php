@@ -16,6 +16,26 @@ class ValeurRepository extends ServiceEntityRepository
         parent::__construct($registry, Valeur::class);
     }
 
+    public function findByEntrepriseDate(int $idEntreprise, Date $date, String $type)
+    {
+        $afficheDate = $date->format('Y-m-d');
+
+        $qb = $this->createQueryBuilder('v')
+            ->innerJoin('v.entreprise', 'e')
+            ->innerJoin('v.date', 'd')
+            ->where('e.id = :id')
+            ->andWhere('d.valeur >= :date')
+            ->andWhere('d.type = ":type"')
+            ->setParameter('id', $idEntreprise)
+            ->setParameter('date', $afficheDate)
+            ->setParameter('type', $type)
+            ->orderBy('d.valeur', 'ASC');
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
     //    /**
     //     * @return Valeur[] Returns an array of Valeur objects
     //     */

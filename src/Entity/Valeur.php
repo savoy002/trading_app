@@ -33,7 +33,7 @@ class Valeur
     #[ORM\JoinColumn(name: 'id_ent', nullable: false)]
     private ?Entreprise $entreprise = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Valeur')]
+    #[ORM\ManyToOne(inversedBy: 'valeurs')]
     #[ORM\JoinColumn(name: 'id_date', nullable: false)]
     private ?Date $date = null;
 

@@ -16,6 +16,25 @@ class DateRepository extends ServiceEntityRepository
         parent::__construct($registry, Date::class);
     }
 
+    public function findByEntreprise(int $id, ?String $type)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->innerJoin('d.valeurs', 'v')
+            ->innerJoin('v.entreprise', 'e')
+            ->where("e.id = :id")
+            ->setParameter('id', $id)
+            ->orderBy('d.valeur', 'ASC');
+
+        if($type != null) {
+            $qb->andWhere("d.type = :type")
+                ->setParameter('type', $type);
+        }
+
+        $query = $qb->getQuery();
+
+        retrun $query;
+    }
+
 //    /**
 //     * @return Date[] Returns an array of Date objects
 //     */
