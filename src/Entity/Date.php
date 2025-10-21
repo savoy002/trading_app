@@ -21,14 +21,17 @@ class Date
     #[ORM\Column(type: Types::DATE_MUTABLE, name: 'val_date')]
     private ?\DateTime $valeur = null;
 
-    #[ORM\Column(type: Types::STRING, length: 255, name: 'type_date')]
-    private ?TypeDate $type = null;
+    #[ORM\Column(type: Types::STRING, length: 1, name: 'type_date')]
+    private ?String $type = null;
 
     /**
      * @var Collection<int, Valeur>
      */
     #[ORM\OneToMany(targetEntity: Valeur::class, mappedBy: 'date', orphanRemoval: true)]
     private Collection $valeurs;
+
+    /*#[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $test = null;*/
 
     public function __construct()
     {
@@ -52,12 +55,12 @@ class Date
         return $this;
     }
 
-    public function getType(): ?TypeDate
+    public function getType(): ?String
     {
         return $this->type;
     }
 
-    public function setType(TypeDate $type): static
+    public function setType(String $type): static
     {
         $this->type = $type;
 
@@ -85,4 +88,16 @@ class Date
 
         return $this;
     }
+
+    /*public function getTest(): ?\DateTimeImmutable
+    {
+        return $this->test;
+    }
+
+    public function setTest(\DateTimeImmutable $test): static
+    {
+        $this->test = $test;
+
+        return $this;
+    }*/
 }

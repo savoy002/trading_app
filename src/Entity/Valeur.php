@@ -30,11 +30,11 @@ class Valeur
     private ?int $volume = null;
 
     #[ORM\ManyToOne(inversedBy: 'valeurs')]
-    #[ORM\JoinColumn(name: 'id_ent', nullable: false)]
+    #[ORM\JoinColumn(name: 'id_ent', referencedColumnName:'id_ent',  nullable: false)]
     private ?Entreprise $entreprise = null;
 
     #[ORM\ManyToOne(inversedBy: 'valeurs')]
-    #[ORM\JoinColumn(name: 'id_date', nullable: false)]
+    #[ORM\JoinColumn(name: 'id_date', referencedColumnName:'id_date', nullable: false)]
     private ?Date $date = null;
 
     public function getId(): ?int

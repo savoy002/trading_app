@@ -18,6 +18,7 @@ class ValeurRepository extends ServiceEntityRepository
 
     public function findByEntrepriseDate(int $idEntreprise, Date $date, String $type): array
     {
+        //Vérifier le fonctionnement.
         $afficheDate = $date->format('Y-m-d');
 
         $qb = $this->createQueryBuilder('v')
