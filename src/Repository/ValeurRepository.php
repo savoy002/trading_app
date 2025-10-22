@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use \DateTime;
+
 use App\Entity\Valeur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,7 +18,8 @@ class ValeurRepository extends ServiceEntityRepository
         parent::__construct($registry, Valeur::class);
     }
 
-    public function findByEntrepriseDate(int $idEntreprise, Date $date, String $type): array
+    //Vérifier la classe date utilisée.
+    public function findByEntrepriseDate(int $idEntreprise, DateTime $date, String $type, int $limit): array
     {
         //Vérifier le fonctionnement.
         $afficheDate = $date->format('Y-m-d');
@@ -26,11 +29,12 @@ class ValeurRepository extends ServiceEntityRepository
             ->innerJoin('v.date', 'd')
             ->where('e.id = :id')
             ->andWhere('d.valeur >= :date')
-            ->andWhere('d.type = ":type"')
+            ->andWhere('d.type = :type')
             ->setParameter('id', $idEntreprise)
             ->setParameter('date', $afficheDate)
             ->setParameter('type', $type)
-            ->orderBy('d.valeur', 'ASC');
+            ->orderBy('d.valeur', 'ASC')
+            ->setMaxResults($limit);
 
         $query = $qb->getQuery();
 

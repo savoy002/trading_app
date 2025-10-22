@@ -23,7 +23,7 @@ class DateRepositoryTest extends KernelTestCase
 	{
 		$entreprise = $this->entityManager->getRepository(Entreprise::class)->findOneBy(['nom' => 'IBM']);
 		$dates = $this->entityManager->getRepository(Date::class)->findByEntreprise($entreprise->getId());
-
+		$this->assertNotEmpty($dates, "Erreur aucune date n'a été retourné.");
 		foreach ($dates as $date) {
 			if($date != null) {
 				$stop = false;
@@ -37,6 +37,7 @@ class DateRepositoryTest extends KernelTestCase
 		}
 
 		$dates = $this->entityManager->getRepository(Date::class)->findByEntreprise($entreprise->getId(), 'J');
+		$this->assertNotEmpty($dates, "Erreur aucune date n'a été retourné.");
 		foreach ($dates as $date) {
 			if($date != null) {
 				$this->assertEquals($date->getType(), 'J', "Erreur l'une des dates retournées n'est pas du type jour.");
