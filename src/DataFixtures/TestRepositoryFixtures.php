@@ -3,8 +3,7 @@
 namespace App\DataFixtures;
 
 use \DateTime;
-use \DateTimeImmutable;
-use App\Entity\Date as DateInfo;
+use App\Entity\Date;
 use App\Entity\Entreprise;
 use App\Entity\TypeDate;
 use App\Entity\Valeur;
@@ -19,19 +18,23 @@ class TestRepositoryFixtures extends Fixture
         $tesla = $this->createEntreprise("Tesla", "TESLA");
 
         $semaine = TypeDate::Semaine;
-        //$semaine = TypeDate::S;
+        $jour = TypeDate::Jour;
 
-        //$test = new DateTimeImmutable('2025-05-26');
-        $test = new DateTime('2025-05-26');
+        $semaine1 = new DateTime('2025-05-26');
+        $jour1 = new DateTime('2025-05-26');
 
-        $date1 = $this->createDate($test, $semaine);
+        $date1 = $this->createDate($semaine1, $semaine);
+        $date2 = $this->createDate($jour1, $jour);
 
         $valeur1 = $this->createValeur(10000, 11000, 9000, 10500, 150, $ibm, $date1);
+        $valeur2 = $this->createValeur(10000, 11000, 9000, 10500, 150, $ibm, $date2);
 
         $manager->persist($ibm);
         $manager->persist($tesla);
         $manager->persist($date1);
+        $manager->persist($date2);
         $manager->persist($valeur1);
+        $manager->persist($valeur2);
 
         $manager->flush();
     }
@@ -45,15 +48,15 @@ class TestRepositoryFixtures extends Fixture
         return $entreprise;
     }
 
-    private function createDate(DateTime $valeur, TypeDate $type): DateInfo
+    private function createDate(DateTime $valeur, TypeDate $type): Date
     {
-        $date = new DateInfo();
+        $date = new Date();
         $date->setValeur($valeur);
         $date->setType($type->value);
         return $date;
     }
 
-    private function createValeur(int $ouverture, int $haute, int $basse, int $fermeture, int $volume, Entreprise $entreprise, DateInfo $date): Valeur
+    private function createValeur(int $ouverture, int $haute, int $basse, int $fermeture, int $volume, Entreprise $entreprise, Date $date): Valeur
     {
         $valeur = new Valeur;
         $valeur->setOuverture($ouverture);

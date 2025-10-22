@@ -67,6 +67,14 @@ class Date
         return $this;
     }
 
+    /**
+     * @return Collection<int, Valeur>
+     */
+    public function getValeurs(): Collection
+    {
+        return $this->valeurs;
+    }
+
     public function addValeur(Valeur $valeur): static
     {
         if (!$this->valeurs->contains($valeur)) {
