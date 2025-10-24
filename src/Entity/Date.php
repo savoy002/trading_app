@@ -30,9 +30,6 @@ class Date
     #[ORM\OneToMany(targetEntity: Valeur::class, mappedBy: 'date', orphanRemoval: true)]
     private Collection $valeurs;
 
-    /*#[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $test = null;*/
-
     public function __construct()
     {
         $this->valeurs = new ArrayCollection();
@@ -97,15 +94,4 @@ class Date
         return $this;
     }
 
-    /*public function getTest(): ?\DateTimeImmutable
-    {
-        return $this->test;
-    }
-
-    public function setTest(\DateTimeImmutable $test): static
-    {
-        $this->test = $test;
-
-        return $this;
-    }*/
 }

@@ -35,7 +35,7 @@ class EntrepriseRepositoryTest extends KernelTestCase
 
 	}
 
-	protected function setDown(): void
+	protected function tearDown(): void
 	{
 		parent::tearDown();
 

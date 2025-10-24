@@ -19,7 +19,6 @@ class EntrepriseRepository extends ServiceEntityRepository
     public function findAllByResarch(String $titre): array 
     {
         $qb = $this->createQueryBuilder('e')
-            //->where("LOWER(e.nom) LIKE LOWER(':titre%')")
             ->where("LOWER(e.nom) LIKE LOWER(:titre)")
             ->setParameter('titre', $titre.'%')
             ->orderBy('e.nom', 'ASC')
